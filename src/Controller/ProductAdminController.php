@@ -78,7 +78,7 @@ class ProductAdminController extends AbstractController
         return $this->render('product_admin/edit.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
-        ]);
+        ], new Response(null, $form->isSubmitted() && !$form->isValid() ? 422 : 200));
     }
 
     /**
