@@ -4,8 +4,12 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    transition: opacity 200ms;
 }
 
+/*body.turbo-loading {*/
+/*    opacity: .2;*/
+/*}*/
 /*[data-turbo-preview] body {*/
 /*    opacity: .2;*/
 /*}*/

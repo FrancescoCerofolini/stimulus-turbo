@@ -35,6 +35,17 @@ class CartController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/cart/_featured", name="_app_cart_product_featured")
+     */
+    public function _cartFeaturedProduct(CartStorage $cartStorage, ProductRepository  $productRepository): Response
+    {
+        return $this->renderForm('cart/cart.html.twig', [
+            'cart' => $cartStorage->getOrCreateCart(),
+        ]);
+    }
     /**
      * @Route("/cart/_list", name="_app_cart_list")
      */

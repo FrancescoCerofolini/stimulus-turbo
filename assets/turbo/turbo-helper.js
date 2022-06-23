@@ -30,9 +30,28 @@ const TurboHelper = class {
             this.closeSweetAlert();
         });
 
-        document.addEventListener('turbo:before-render', () => {
-            document.querySelector('#weatherwidget-io-js').remove();
+        document.addEventListener('turbo:before-render', (event) => {
+            if (this.isPreviewRendered()) {
+                event.detail.newBody.classList.remove( 'turbo-loading');
+
+                requestAnimationFrame(() => {
+                     event.detail.nweBody.classList.add('turbo-loading');
+                });
+            } else {
+                const isRestoration = event .detail.newBody.classList.contains('turbo-loading');
+                event.detail.newBody.classList.add('turbo-loading');
+            }
         })
+
+        document.addEventListener('turbo:render', () => {
+            if (!this.isPreviewRendered()) {
+                requestAnimationFrame(() => {
+                    document.body.classList.remove('turbo-loading');
+                });
+            }
+        });
+
+
     }
 
     closeModal() {
@@ -57,6 +76,15 @@ const TurboHelper = class {
                 }
             })
         }
+    }
+
+    initializeWeatherWidget() {
+        __weatherwidget_init();
+
+    }
+
+    isPreviewRendered() {
+        return document.documentElement.hasAttribute('data-turbo-preview');
     }
 }
 
