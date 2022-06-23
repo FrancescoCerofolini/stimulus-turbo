@@ -11,4 +11,4 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
-import './turbo/turbo-helpeer';
+import './turbo/turbo-helper';

@@ -3,10 +3,36 @@ import {Modal} from "bootstrap";
 const TurboHelper = class {
     constructor() {
 
+        document.addEventListener('shown.bs.modal', () => {
+            if (document.querySelector('meta[name="turbo-cache-control"]')) {
+                // non modificarno altri che fai peggio de meglio
+                return;
+            }
+
+            const meta = document.createElement('meta');
+            meta.name = 'turbo-cache-control';
+            meta.content = "no-cache";
+            meta.dataset.removablie = true;
+            document.querySelector('head').appendChild(meta);
+
+            document.addEventListener('hidden.bs.modal', () => {
+                const meta = document.querySelector('meta[name="turbo-cache-control"]')
+                if (!meta || !meta.dataset.removable) {
+                    return;
+                }
+                meta.remove();
+            })
+
+        })
+
         document.addEventListener('turbo:before-cache', (event) => {
             this.closeModal();
             this.closeSweetAlert();
         });
+
+        document.addEventListener('turbo:before-render', () => {
+            document.querySelector('#weatherwidget-io-js').remove();
+        })
     }
 
     closeModal() {
