@@ -47,6 +47,10 @@ const TurboHelper = class {
             document.body.classList.add('turbo-loading');
         });
 
+        document.addEventListener('turbo:submit-start', (event) => {
+            console.log('submit-start', event);
+        })
+
         this.initializeTransitions();
 
 
