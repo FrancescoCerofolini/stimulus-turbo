@@ -8,6 +8,8 @@
                 {{ include('product/_categoriesSidebar.html.twig') }}
             </aside>
 
+            <turbo-frame id="wether_widget" src="{{ path('app_weather') }}"></turbo-frame>
+
             <div class="col-12 col-md-9 product-show order-1 order-md-2">
                 {% block productBody %}{% endblock %}
             </div>

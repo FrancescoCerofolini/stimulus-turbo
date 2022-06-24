@@ -41,15 +41,14 @@ const TurboHelper = class {
                 const isRestoration = event .detail.newBody.classList.contains('turbo-loading');
                 event.detail.newBody.classList.add('turbo-loading');
             }
-        })
-
-        document.addEventListener('turbo:render', () => {
-            if (!this.isPreviewRendered()) {
-                requestAnimationFrame(() => {
-                    document.body.classList.remove('turbo-loading');
-                });
-            }
         });
+
+        document.addEventListener('turbo:visit', () => {
+            document.body.classList.add('turbo-loading');
+        });
+
+        this.initializeTransitions();
+
 
 
     }
@@ -78,10 +77,7 @@ const TurboHelper = class {
         }
     }
 
-    initializeWeatherWidget() {
-        __weatherwidget_init();
 
-    }
 
     isPreviewRendered() {
         return document.documentElement.hasAttribute('data-turbo-preview');
