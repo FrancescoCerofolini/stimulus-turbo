@@ -2,6 +2,7 @@
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
+        {% block metas %}{% endblock %}
         <title>{% block title %}MVP Office Supplies{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -66,6 +67,7 @@
                 </nav>
             </header>
 
+            <div id="flash-container" data-turbo-cache="false">
             {% for flash in app.session.flashBag.get('success') %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ flash }}
@@ -75,6 +77,7 @@
                 </div>
 
             {% endfor %}
+            </div>
         </div>
 
         {% block body %}{% endblock %}
@@ -85,17 +88,20 @@
         >
         </div>
 
-
         {% block weather_widget %}
             <turbo-frame id="weather_widget" src="{{ path('app_weather') }}" loading="lazy"></turbo-frame>
         {% endblock %}
 
         <script>
-            document.getElementById('logo-img').addEventListener('click', (event) => {
-                event.preventDefault( );
-
-                Turbo.visit('/cart');
-            })
+        document.getElementById('logo-img').addEventListener('click', (event) => {
+            event.preventDefault();
+            Turbo.visit('/cart');
+        })
         </script>
+
+        <div
+            id="toast-container"
+            class="toast-container position-fixed top-0 end-0 p-3"
+        ></div>
     </body>
 </html>

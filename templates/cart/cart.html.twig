@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block metas %}
+    {{ parent() }}
     <link rel="prefetch" href="{{ path('app_checkout') }}">
 {% endblock %}
 
@@ -8,7 +9,7 @@
     <div class="container-fluid container-xl mt-4">
         <div class="row">
             <aside class="col-12 col-md-4 order-2 order-md-1">
-                <turbo-frame id="cart-sidebar" src="{{ path('_app_cart_product_featured')}}" target="_top">
+                <turbo-frame id="cart-sidebar" src="{{ path('_app_cart_product_featured') }}" target="_top">
                     Loading...
                 </turbo-frame>
             </aside>

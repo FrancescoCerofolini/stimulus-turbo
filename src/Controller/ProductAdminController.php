@@ -35,7 +35,9 @@ class ProductAdminController extends AbstractController
     public function new(Request $request): Response
     {
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            'action' => $this->generateUrl('product_admin_new'),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,13 +54,11 @@ class ProductAdminController extends AbstractController
 
         $template = $request->isXmlHttpRequest() ? '_form.html.twig' : 'new.html.twig';
 
-        return $this->render('product_admin/' . $template, [
+        return $this->renderForm('product_admin/' . $template, [
             'product' => $product,
-            'form' => $form->createView(),
-        ], new Response(
-            null,
-            $form->isSubmitted() && !$form->isValid() ? 422 : 200,
-        ));
+            'form' => $form,
+            'formTarget' => $request->headers->get('Turbo-Frame', '_top')
+        ]);
     }
 
     /**
@@ -66,19 +66,26 @@ class ProductAdminController extends AbstractController
      */
     public function edit(Request $request, Product $product): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            'action' => $this->generateUrl('product_admin_edit', [
+                'id' => $product->getId(),
+            ]),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('product_admin_index');
+            return $this->redirectToRoute('app_product', [
+                'id' => $product->getId(),
+            ]);
         }
 
-        return $this->render('product_admin/edit.html.twig', [
+        return $this->renderForm('product_admin/edit.html.twig', [
             'product' => $product,
-            'form' => $form->createView(),
-        ], new Response(null, $form->isSubmitted() && !$form->isValid() ? 422 : 200));
+            'form' => $form,
+            'formTarget' => $request->headers->get('Turbo-Frame', '_top')
+        ]);
     }
 
     /**

@@ -21,38 +21,29 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="app_cart")
      */
-    public function shoppingCart(CartStorage $cartStorage, ProductRepository  $productRepository): Response
+    public function shoppingCart(CartStorage $cartStorage): Response
     {
-        $featuredProduct = $productRepository->findFeatured();
-        $addToCartForm = $this->createForm(AddItemToCartFormType::class, null, [
-            'product' => $featuredProduct,
-        ]);
-
         return $this->renderForm('cart/cart.html.twig', [
             'cart' => $cartStorage->getOrCreateCart(),
-            'featuredProduct' => $featuredProduct,
-            'addToCartForm' => $addToCartForm
         ]);
     }
-
-
 
     /**
      * @Route("/cart/_featured", name="_app_cart_product_featured")
      */
-    public function _cartFeaturedProduct(ProductRepository  $productRepository, Request $request): Response
+    public function _cartFeaturedProduct(ProductRepository $productRepository, Request $request): Response
     {
         $featuredProduct = $productRepository->findFeatured();
         $addToCartForm = $this->createForm(AddItemToCartFormType::class, null, [
             'product' => $featuredProduct,
         ]);
-        return $this->renderForm('cart/cart.html.twig', [
+
+        return $this->renderForm('cart/_featuredSidebar.html.twig', [
             'featuredProduct' => $featuredProduct,
             'addToCartForm' => $addToCartForm,
             'showDescription' => $request->query->get('description'),
         ]);
     }
-
 
     /**
      * @Route("/cart/_list", name="_app_cart_list")
@@ -86,10 +77,10 @@ class CartController extends AbstractController
             ]);
         }
 
-        return $this->render('product/show.html.twig', [
+        return $this->renderForm('product/show.html.twig', [
             'product' => $product,
             'categories' => $categoryRepository->findAll(),
-            'addToCartForm' => $addToCartForm->createView()
+            'addToCartForm' => $addToCartForm,
         ]);
     }
 

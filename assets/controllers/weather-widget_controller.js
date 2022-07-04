@@ -1,21 +1,21 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
     connect() {
         if (typeof __weatherwidget_init === 'function') {
             __weatherwidget_init();
         } else {
-            this.initializeScriptTag(document, 'script', 'weatherwdiget-io-js');
+            this.initializeScriptTag(document, 'script', 'weatherwidget-io-js');
         }
     }
 
-    initializeScriptTag (d,s, id) {
-        let js, fjs = d.getElementsByTagName(s)[0];
+    initializeScriptTag (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
         if (!d.getElementById(id)) {
             js = d.createElement(s);
             js.id = id;
-            js.src = "https://weatherwidget.io/js/widget.min.js";
+            js.src = 'https://weatherwidget.io/js/widget.min.js';
             fjs.parentNode.insertBefore(js, fjs);
         }
-    };
+    }
 }

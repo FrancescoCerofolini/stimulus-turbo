@@ -1,0 +1,7 @@
+<div id="product-{{ product.id }}-review-list">
+{% for review in product.reviews %}
+    {{ include('product/_review.html.twig') }}
+{% else %}
+    <p>This product has not been reviewed yet!</p>
+{% endfor %}
+</div>

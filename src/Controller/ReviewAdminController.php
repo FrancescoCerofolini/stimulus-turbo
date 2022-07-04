@@ -62,9 +62,9 @@ class ReviewAdminController extends AbstractController
             return $this->redirectToRoute('review_admin_index');
         }
 
-        return $this->render('review_admin/edit.html.twig', [
+        return $this->renderForm('review_admin/edit.html.twig', [
             'review' => $review,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

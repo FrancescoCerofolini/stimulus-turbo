@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\UX\Turbo\Stream\TurboStreamResponse;
 
 class ProductController extends AbstractController
 {
@@ -94,11 +95,11 @@ class ProductController extends AbstractController
             }
         }
 
-        return $this->render('product/reviews.html.twig', [
+        return $this->renderForm('product/reviews.html.twig', [
             'product' => $product,
             'currentCategory' => $product->getCategory(),
             'categories' => $categoryRepository->findAll(),
-            'reviewForm' => $reviewForm ? $reviewForm->createView() : null,
+            'reviewForm' => $reviewForm?: null,
         ]);
     }
 

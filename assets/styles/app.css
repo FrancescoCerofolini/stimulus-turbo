@@ -6,29 +6,28 @@ body {
     font-family: 'Montserrat', sans-serif;
     transition: opacity 200ms;
 }
-
-/*body.turbo-loading {*/
-/*    opacity: .2;*/
-/*}*/
-/*[data-turbo-preview] body {*/
-/*    opacity: .2;*/
-/*}*/
-
+/*
+body.turbo-loading {
+    opacity: .8;
+}
+*/
+/*
+[data-turbo-preview] body {
+    opacity: .2;
+}
+*/
 turbo-frame {
     display: block;
 }
-
 turbo-frame[busy] {
     opacity: .7;
 }
-
-turbo-frame[busy] .frame-loading-hide, turbo-frame .frame-loading-show  {
+turbo-frame[busy] .frame-loading-hide, turbo-frame .frame-loading-show {
     display: none;
 }
 turbo-frame[busy] .frame-loading-show {
     display: inline-block;
 }
-
 a, a:hover  {
     color: #000;
 }
@@ -171,10 +170,6 @@ h1 {
     color: inherit;
 }
 
-.modal-body button {
-    display: none;
-}
-
 .fade-enter-active, .fade-leave-active {
     transition: opacity 300ms;
 }
@@ -183,4 +178,13 @@ h1 {
 }
 .fade-enter-to, .fade-leave-from {
     opacity: 1;
+}
+.streamed-new-item {
+    background-color: lightgreen;
+}
+.streamed-removed-item {
+    background-color: lightcoral;
+}
+.fade-background {
+    transition: background-color 2000ms;
 }

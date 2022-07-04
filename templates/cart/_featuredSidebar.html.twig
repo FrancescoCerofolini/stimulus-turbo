@@ -1,4 +1,4 @@
-<turbo-frame id="cart-sidebar">
+<turbo-frame id="cart-sidebar" target="_top">
     <div class="component-light product-show p-3 mb-5">
         <h5 class="text-center">Featured Product!</h5>
         <a href="{{ path('app_product', { id: featuredProduct.id }) }}">
@@ -15,18 +15,17 @@
                 {{ featuredProduct.priceString|format_currency('USD') }}
             </h6>
 
-            {% if showDescription  %}
-                 {{ featuredProduct.description }}
+            {% if showDescription %}
+                {{ featuredProduct.description }}
             {% else %}
                 {{ featuredProduct.description|u.truncate(25)|trim }}...
 
                 <a
-                    data-trubo-frame="cart-sidebar"
+                    data-turbo-frame="cart-sidebar"
                     class="frame-loading-hide"
                     href="{{ path('_app_cart_product_featured', {
-                    description: true
-                    }) }}"
-                >(read more)</a>
+                    description: true,
+                }) }}">(read more)</a>
                 <span class="frame-loading-show fas fa-spinner fa-spin"></span>
             {% endif %}
 
